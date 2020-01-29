@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Parent Domain</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jschannel/1.0.0-git-commit1-8c4f7eb/jschannel.min.js"></script>
+    </head>
+    <body>
+        <div>
+            Cookies: <ul class="cookie-data"></ul>
+        </div>
+        <%# <iframe
+            id="rpc-gateway"
+            src="http://127.0.0.1:5301/iframe"
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin"></iframe> %>
+        <iframe
+          id="rpc-gateway"
+          src="http://child.test/iframe"
+          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-top-navigation"></iframe>
+        <script type="text/javascript">
+            var chan = Channel.build({
+                window: document.getElementById("rpc-gateway").contentWindow,
+                origin: "*",
+                scope: "testScope"
+            });
+
+            // Added this to try out the JSChannel
+            chan.call({
+                method: "reverse",
+                params: "hello world!",
+                success: function(v) {
+                    console.log(v);
+                }
+            });
+
+        </script>
+    </body>
+</html>
