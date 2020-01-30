@@ -9,7 +9,7 @@
     </head>
     <body>
         <div>
-            Cookies: <ul class="cookie-data"></ul>
+            Cookies: <ul id="cookie-data"></ul>
         </div>
         <%# <iframe
             id="rpc-gateway"
@@ -34,6 +34,17 @@
                     console.log(v);
                 }
             });
+
+
+            document.getElementById('cookie-data').innerHTML=listCookies()
+            function listCookies() {
+                var theCookies = document.cookie.split(';');
+                var aString = '';
+                for (var i = 1 ; i <= theCookies.length; i++) {
+                    aString += i + ' ' + theCookies[i-1] + "\n";
+            }
+                return aString;
+            }
 
         </script>
     </body>

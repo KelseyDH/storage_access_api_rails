@@ -10,6 +10,10 @@
     <body>
         <base target="_parent">
 
+        <div>
+            Cookies: <ul id="cookie-iframe-data"></ul>
+        </div>
+
         <%= link_to "Refer Now", first_party_cookie_url %>
         <button onClick="onLoginClick()">Submit</button>
         <br>
@@ -25,7 +29,16 @@
                 return s.split("").reverse().join("");
             });
 
-            document.cookie = 'tooearlycookie=test; expires=Thu, 01 Jan 2022 00:00:00 UTC; path=/'
+            document.getElementById('cookie-iframe-data').innerHTML=listCookies()
+            function listCookies() {
+                var theCookies = document.cookie.split(';');
+                var aString = '';
+                for (var i = 1 ; i <= theCookies.length; i++) {
+                    aString += i + ' ' + theCookies[i-1] + "\n";
+            }
+                return aString;
+            }
+
 
             let onLoginClick = function(trans, params) {
                 document.hasStorageAccess().then(hasAccess => {
